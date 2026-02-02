@@ -5,7 +5,7 @@ import "./globals.css";
 import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const siteUrl = "https://youmake.dev/pitch";
+const siteUrl = "https://pitch.youmake.dev";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

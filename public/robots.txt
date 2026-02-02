@@ -3,4 +3,4 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://youmake.dev/pitch/sitemap.xml
+Sitemap: https://pitch.youmake.dev/sitemap.xml

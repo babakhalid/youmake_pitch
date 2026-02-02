@@ -70,7 +70,7 @@ export function CarouselToolbar({ views }: Props) {
 
   const handleOnShare = () => {
     const popup = popupCenter({
-      url: "https://twitter.com/intent/tweet?text=Check this pitch deck https://youmake.dev/pitch @youmakedev",
+      url: "https://twitter.com/intent/tweet?text=Check this pitch deck https://pitch.youmake.dev @youmakedev",
       title: "Share",
       w: 800,
       h: 400,
@@ -198,7 +198,7 @@ export function CarouselToolbar({ views }: Props) {
           </DialogDescription>
 
           <div className="grid gap-6 py-4">
-            <CopyInput value="https://youmake.dev/pitch" />
+            <CopyInput value="https://pitch.youmake.dev" />
             <Button
               className="w-full flex items-center space-x-2 h-10"
               onClick={handleOnShare}
