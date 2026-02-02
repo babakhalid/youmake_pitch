@@ -1,0 +1,6 @@
+# robots.txt for YouMake Pitch Deck
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://youmake.dev/pitch/sitemap.xml
