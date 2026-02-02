@@ -6,8 +6,12 @@ import { Inter as FontSans } from "next/font/google";
 import { cn } from "@/lib/utils";
 
 export const metadata: Metadata = {
-  title: "Pitch",
-  description: "My pitch",
+  title: "YouMake - Pitch Deck",
+  description: "Build at the speed of thought",
+  icons: {
+    icon: "/logo_yomake_white.png",
+    apple: "/logo_yomake_white.png",
+  },
 };
 
 const fontSans = FontSans({
