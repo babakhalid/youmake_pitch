@@ -1,13 +1,30 @@
+"use client";
+
 import { CalEmbed } from "@/components/cal-embed";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
+// Declare Umami types
+declare global {
+  interface Window {
+    umami?: {
+      track: (event: string, data?: Record<string, unknown>) => void;
+    };
+  }
+}
+
 export function SectionBook() {
+  const trackSignupClick = () => {
+    if (window.umami) {
+      window.umami.track("signup-click", { source: "pitch-deck" });
+    }
+  };
+
   return (
     <div className="min-h-screen relative w-screen">
-      <div className="absolute left-4 right-4 md:left-8 md:right-8 top-4 flex justify-between text-lg">
+      <div className="absolute left-16 right-4 md:left-20 md:right-8 top-4 flex justify-between text-lg">
         <span>Book a meeting</span>
-        <Link href="https://app.midday.ai">
+        <Link href="http://youmake.dev/signin" onClick={trackSignupClick}>
           <Button variant="outline">Sign up</Button>
         </Link>
       </div>

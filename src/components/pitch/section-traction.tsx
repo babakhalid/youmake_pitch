@@ -1,154 +1,97 @@
-"use client";
-
-import { fetchGithubStars } from "@/actions/fetch-github-stars";
-import { fetchStats } from "@/actions/fetch-stats";
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { FaXTwitter } from "react-icons/fa6";
-import customers from "./customers.png";
-import { Card } from "./ui";
-
 export function SectionTraction() {
-  const [stars, setStars] = useState(0);
-  const [users, setUsers] = useState(0);
-  const [transactions, setTransactions] = useState(0);
-
-  useEffect(() => {
-    async function fetchStars() {
-      try {
-        const response = await fetchGithubStars();
-        setStars(response);
-      } catch {}
-    }
-
-    async function fetchCount() {
-      try {
-        const { users, transactions } = await fetchStats();
-        setUsers(users);
-        setTransactions(transactions);
-      } catch {}
-    }
-
-    fetchStars();
-    fetchCount();
-  }, []);
-
   return (
-    <div className="min-h-screen relative w-screen">
-      <div className="absolute left-4 right-4 md:left-8 md:right-8 top-4 flex justify-between text-lg">
-        <span>Where we are</span>
-        <span className="text-[#878787]">
-          <Link href="/">midday.ai</Link>
-        </span>
-      </div>
-      <div className="flex flex-col min-h-screen justify-center container">
-        <div className="grid md:grid-cols-3 gap-8 px-4 md:px-0 md:pt-0 h-[580px] md:h-auto overflow-auto pb-[100px] md:pb-0">
-          <div className="space-y-8">
-            <Card className="min-h-[365px]">
-              <h2 className="text-2xl">Waitlist sign ups</h2>
+    <div className="min-h-screen relative">
+      <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
+        Traction
+      </span>
 
-              <p className="text-[#878787] text-sm text-center">
-                We have built Midday in public on X and amassed nearly 4000
-                signups ready to start using Midday.
-              </p>
-
-              <span className="mt-auto font-mono text-[80px] md:text-[122px]">
-                3453
-              </span>
-            </Card>
-
-            <Card className="min-h-[365px]">
-              <h2 className="text-2xl">GitHub stars</h2>
-
-              <p className="text-[#878787] text-sm text-center">
-                Our goal is to build a great community around Midday.
-              </p>
-
-              <div className="flex items-center space-x-4">
-                <span className="relative ml-auto flex h-2 w-2">
+      <div className="container min-h-screen flex flex-col items-center justify-center py-20 px-4 md:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 w-full max-w-5xl">
+          {/* Card 1 - Signups */}
+          <div className="group relative border border-border bg-[#121212] rounded-2xl p-4 md:p-6 flex flex-col h-[160px] md:h-[220px] transition-all duration-300 hover:border-[#333]">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+            <div className="relative z-10 flex flex-col h-full">
+              <span className="text-[#878787] text-xs uppercase tracking-widest">Signups</span>
+              <div className="mt-auto flex items-center gap-2 md:gap-3">
+                <span className="relative flex h-2 w-2">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-green-400" />
                   <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
                 </span>
-                <span className="mt-auto font-mono text-[80px] md:text-[122px]">
-                  {stars &&
-                    Intl.NumberFormat("en", {
-                      notation: "compact",
-                      minimumFractionDigits: 0,
-                      maximumFractionDigits: 1,
-                    }).format(stars.stargazers_count ?? 0)}
-                </span>
+                <span className="font-mono text-4xl md:text-7xl font-medium">165</span>
               </div>
-            </Card>
-          </div>
-          <div className="space-y-8">
-            <Card className="min-h-[365px]">
-              <h2 className="text-2xl">Private beta users</h2>
-
-              <p className="text-[#878787] text-sm text-center">
-                This is how many we’ve let into the system to start using it,
-                joined the community and started to form Midday together with
-                us.
-              </p>
-
-              <div className="flex items-center space-x-4">
-                <span className="relative ml-auto flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-green-400" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-                </span>
-
-                <span className="mt-auto font-mono text-[80px] md:text-[122px]">
-                  {users}
-                </span>
-              </div>
-            </Card>
-
-            <Card className="min-h-[365px]">
-              <h2 className="text-2xl">Transactions</h2>
-
-              <p className="text-[#878787] text-sm text-center">
-                We are already handling a significant amount of transaction
-                data.
-              </p>
-
-              <div className="flex items-center space-x-4">
-                <span className="relative ml-auto flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-green-400" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
-                </span>
-
-                <span className="mt-auto font-mono text-[80px] md:text-[122px]">
-                  {transactions &&
-                    Intl.NumberFormat("en", { notation: "compact" }).format(
-                      transactions
-                    )}
-                </span>
-              </div>
-            </Card>
-          </div>
-
-          <div className="ml-auto w-full max-w-[820px] h-full border border-border p-6 bg-[#0C0C0C] relative">
-            <h2 className="mb-24 block text-[38px] font-medium">
-              What people say
-            </h2>
-
-            <div className="absolute w-[220px] bottom-6 left-[50%] -mt-5 -ml-[110px] flex justify-center">
-              <a
-                href="https://twitter.com/search?q=midday.ai&src=typed_query&f=top"
-                target="_blank"
-                rel="noreferrer"
-              >
-                <Button className="w-full flex items-center space-x-2 h-10">
-                  <span>More posts on</span>
-                  <FaXTwitter />
-                </Button>
-              </a>
             </div>
+          </div>
 
-            <Image src={customers} width={698} alt="Customers" quality={100} />
+          {/* Card 2 - Projects */}
+          <div className="group relative border border-border bg-[#121212] rounded-2xl p-4 md:p-6 flex flex-col h-[160px] md:h-[220px] transition-all duration-300 hover:border-[#333]">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+            <div className="relative z-10 flex flex-col h-full">
+              <span className="text-[#878787] text-xs uppercase tracking-widest">Projects</span>
+              <div className="mt-auto flex items-center gap-2 md:gap-3">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-green-400" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                </span>
+                <span className="font-mono text-4xl md:text-7xl font-medium">371</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 3 - Deployed */}
+          <div className="group relative border border-border bg-[#121212] rounded-2xl p-4 md:p-6 flex flex-col h-[160px] md:h-[220px] transition-all duration-300 hover:border-[#333]">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+            <div className="relative z-10 flex flex-col h-full">
+              <span className="text-[#878787] text-xs uppercase tracking-widest">Deployed</span>
+              <div className="mt-auto flex items-center gap-2 md:gap-3">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-green-400" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                </span>
+                <span className="font-mono text-4xl md:text-7xl font-medium">68</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 4 - Messages */}
+          <div className="group relative border border-border bg-[#121212] rounded-2xl p-4 md:p-6 flex flex-col h-[160px] md:h-[220px] transition-all duration-300 hover:border-[#333]">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+            <div className="relative z-10 flex flex-col h-full">
+              <span className="text-[#878787] text-xs uppercase tracking-widest">Messages</span>
+              <p className="text-[#555] text-xs mt-1">Users & AI Agents</p>
+              <span className="mt-auto font-mono text-4xl md:text-7xl font-medium">66.6K</span>
+            </div>
+          </div>
+
+          {/* Card 5 - MRR */}
+          <div className="group relative border border-border bg-[#121212] rounded-2xl p-4 md:p-6 flex flex-col h-[160px] md:h-[220px] transition-all duration-300 hover:border-[#333]">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+            <div className="relative z-10 flex flex-col h-full">
+              <span className="text-[#878787] text-xs uppercase tracking-widest">MRR</span>
+              <div className="mt-auto flex items-center gap-2 md:gap-3">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-green-400" />
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                </span>
+                <span className="font-mono text-4xl md:text-7xl font-medium">$245</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Card 6 - Average */}
+          <div className="group relative border border-border bg-[#121212] rounded-2xl p-4 md:p-6 flex flex-col h-[160px] md:h-[220px] transition-all duration-300 hover:border-[#333]">
+            <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
+            <div className="relative z-10 flex flex-col h-full">
+              <span className="text-[#878787] text-xs uppercase tracking-widest">Average</span>
+              <p className="text-[#555] text-xs mt-1">Per paying user</p>
+              <span className="mt-auto font-mono text-4xl md:text-7xl font-medium">$61</span>
+            </div>
           </div>
         </div>
+
+        {/* Bottom Text */}
+        <p className="text-[#555] text-lg mt-10 text-center tracking-wide">
+          Early traction with paying customers
+        </p>
       </div>
     </div>
   );

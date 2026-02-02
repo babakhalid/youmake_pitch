@@ -20,11 +20,36 @@ import {
 import { useEffect, useRef, useState } from "react";
 import { CarouselToolbar } from "./carousel-toolbar";
 
+// Slide names for analytics tracking
+const SLIDE_NAMES = [
+  "start",
+  "problem",
+  "solution",
+  "demo",
+  "traction",
+  "team",
+  "vision",
+  "revenue-model",
+  "whats-next",
+  "book-meeting",
+] as const;
+
+// Declare Umami types
+declare global {
+  interface Window {
+    umami?: {
+      track: (event: string, data?: Record<string, unknown>) => void;
+    };
+  }
+}
+
 export function PitchCarusel() {
   const [views, setViews] = useState(0);
   const called = useRef(false);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const slideStartTime = useRef<number>(Date.now());
+  const previousSlideRef = useRef<number>(0);
 
   useEffect(() => {
     async function fetchViewsCount() {
@@ -48,14 +73,58 @@ export function PitchCarusel() {
 
     setCurrent(api.selectedScrollSnap() + 1);
 
+    // Track initial slide view
+    const initialSlide = api.selectedScrollSnap();
+    trackSlideView(initialSlide);
+
     api.on("select", () => {
-      setCurrent(api.selectedScrollSnap() + 1);
+      const newSlide = api.selectedScrollSnap();
+      const previousSlide = previousSlideRef.current;
+
+      // Track time spent on previous slide
+      const timeSpent = Math.round((Date.now() - slideStartTime.current) / 1000);
+      if (window.umami && timeSpent > 0) {
+        window.umami.track("slide-duration", {
+          slide: SLIDE_NAMES[previousSlide],
+          slideNumber: previousSlide + 1,
+          duration: timeSpent,
+        });
+      }
+
+      // Track new slide view
+      trackSlideView(newSlide);
+      slideStartTime.current = Date.now();
+      previousSlideRef.current = newSlide;
+
+      setCurrent(newSlide + 1);
     });
   }, [api]);
 
+  // Track slide view
+  const trackSlideView = (slideIndex: number) => {
+    if (window.umami) {
+      window.umami.track("slide-view", {
+        slide: SLIDE_NAMES[slideIndex],
+        slideNumber: slideIndex + 1,
+      });
+    }
+  };
+
   return (
-    <Carousel className="w-full min-h-full relative" setApi={setApi}>
-      <CarouselContent>
+    <div className="relative w-full min-h-full">
+      {/* Persistent Logo */}
+      <div className="fixed top-4 left-4 md:left-8 z-50">
+        <img
+          src="/logo_yomake_white.png"
+          alt="Yomake Logo"
+          width={40}
+          height={40}
+          className=""
+        />
+      </div>
+      
+      <Carousel className="w-full min-h-full relative" setApi={setApi}>
+        <CarouselContent>
         <CarouselItem>
           <SectionStart />
         </CarouselItem>
@@ -75,10 +144,10 @@ export function PitchCarusel() {
           <SectionTeam />
         </CarouselItem>
         <CarouselItem>
-          <SectionSubscription />
+          <SectionVision />
         </CarouselItem>
         <CarouselItem>
-          <SectionVision />
+          <SectionSubscription />
         </CarouselItem>
         <CarouselItem>
           <SectionNext />
@@ -89,6 +158,7 @@ export function PitchCarusel() {
       </CarouselContent>
 
       <CarouselToolbar views={views} />
-    </Carousel>
+      </Carousel>
+    </div>
   );
 }

@@ -27,7 +27,7 @@ type Props = {
   views: number;
 };
 
-const popupCenter = ({ url, title, w, h }) => {
+const popupCenter = ({ url, title, w, h }: { url: string; title: string; w: number; h: number }) => {
   const dualScreenLeft =
     window.screenLeft !== undefined ? window.screenLeft : window.screenX;
   const dualScreenTop =
@@ -70,7 +70,7 @@ export function CarouselToolbar({ views }: Props) {
 
   const handleOnShare = () => {
     const popup = popupCenter({
-      url: "https://twitter.com/intent/tweet?text=Check this pitch deck https://midday.ai/pitch @middayai",
+      url: "https://twitter.com/intent/tweet?text=Check this pitch deck https://youmake.dev/pitch @youmakedev",
       title: "Share",
       w: 800,
       h: 400,
@@ -111,7 +111,7 @@ export function CarouselToolbar({ views }: Props) {
 
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button type="button" onClick={() => api.scrollTo(100)}>
+                    <button type="button" onClick={() => api?.api?.scrollTo(9)}>
                       <Icons.Calendar size={18} className="text-[#878787]" />
                     </button>
                   </TooltipTrigger>
@@ -198,7 +198,7 @@ export function CarouselToolbar({ views }: Props) {
           </DialogDescription>
 
           <div className="grid gap-6 py-4">
-            <CopyInput value="https://midday.ai/pitch" />
+            <CopyInput value="https://youmake.dev/pitch" />
             <Button
               className="w-full flex items-center space-x-2 h-10"
               onClick={handleOnShare}

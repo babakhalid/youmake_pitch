@@ -3,23 +3,16 @@
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { Button } from "@/components/ui/button";
 import { Icons } from "@/components/ui/icons";
-import dynamic from "next/dynamic";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
-
-const ReactHlsPlayer = dynamic(() => import("react-hls-player"), {
-  ssr: false,
-  loading: () => <p>Loading...</p>,
-});
 
 type Props = {
   playVideo: boolean;
 };
 
 export function SectionDemo({ playVideo }: Props) {
-  const playerRef = useRef();
-  const [isPlaying, setPlaying] = useState(true);
+  const playerRef = useRef<HTMLVideoElement>(null);
+  const [isPlaying, setPlaying] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   useHotkeys(
@@ -39,17 +32,16 @@ export function SectionDemo({ playVideo }: Props) {
   );
 
   useEffect(() => {
-    if (isDesktop) {
-      if (playVideo) {
-        togglePlay();
-      } else {
-        togglePlay();
-      }
+    if (isDesktop && playVideo && playerRef.current) {
+      playerRef.current.play();
+      setPlaying(true);
     }
   }, [playVideo, isDesktop]);
 
   const handleRestart = () => {
-    playerRef.current.currentTime = 0;
+    if (playerRef.current) {
+      playerRef.current.currentTime = 0;
+    }
   };
 
   const togglePlay = () => {
@@ -63,26 +55,25 @@ export function SectionDemo({ playVideo }: Props) {
   };
 
   return (
-    <div className="min-h-screen relative w-screen">
-      <div className="absolute left-4 right-4 md:left-8 md:right-8 top-4 flex justify-between text-lg">
-        <span>Demo - Version 0.5 (Private beta)</span>
-        <span className="text-[#878787]">
-          <Link href="/">midday.ai</Link>
-        </span>
-      </div>
-      <div className="flex flex-col min-h-screen justify-center container">
-        <div className="group">
-          <div className="absolute top-[50%] left-[50%] w-[200px] h-[50px] -ml-[100px] -mt-[50px] group-hover:opacity-100 hidden md:flex space-x-4 items-center justify-center opacity-0 z-30 transition-all">
+    <div className="min-h-screen relative">
+      <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
+        Demo
+      </span>
+
+      <div className="container min-h-screen flex flex-col items-center justify-center py-20 px-4 md:px-8">
+        <div className="group relative w-full max-w-4xl">
+          {/* Play/Pause Controls */}
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:opacity-100 hidden md:flex space-x-4 items-center justify-center opacity-0 z-30 transition-all duration-300">
             <Button
               size="icon"
-              className="rounded-full w-14 h-14 bg-transparent border border-white text-white hover:bg-transparent"
+              className="rounded-full w-12 h-12 bg-black/50 border border-white/20 text-white hover:bg-black/70 backdrop-blur-sm"
               onClick={handleRestart}
             >
-              <Icons.Reply size={24} />
+              <Icons.Reply size={20} />
             </Button>
             <Button
               size="icon"
-              className="rounded-full w-14 h-14"
+              className="rounded-full w-14 h-14 bg-white text-black hover:bg-white/90"
               onClick={togglePlay}
             >
               {isPlaying ? (
@@ -92,16 +83,24 @@ export function SectionDemo({ playVideo }: Props) {
               )}
             </Button>
           </div>
-          <ReactHlsPlayer
+
+          {/* Video */}
+          <video
+            ref={playerRef}
             onClick={togglePlay}
-            src="https://customer-oh6t55xltlgrfayh.cloudflarestream.com/3c8ebd39be71d2451dee78d497b89a23/manifest/video.m3u8"
-            autoPlay={false}
+            src="/demo.mp4"
             controls={!isDesktop}
-            playerRef={playerRef}
-            className="w-full max-h-[90%] lg:max-h-full mt-8 bg-[#121212] max-w-[1280px] m-auto"
             loop
+            muted
+            playsInline
+            className="w-full rounded-2xl border border-border bg-[#121212] cursor-pointer"
           />
         </div>
+
+        {/* Bottom Text */}
+        <p className="text-[#555] text-lg mt-8 text-center tracking-wide">
+          See YouMake in action
+        </p>
       </div>
     </div>
   );
