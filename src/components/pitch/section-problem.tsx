@@ -19,7 +19,7 @@ export function SectionProblem() {
           </div>
 
           {/* Card 2 - Iridescence */}
-          <div className="rounded-2xl overflow-hidden h-[140px] md:h-[180px] hidden md:block">
+          <div className="rounded-2xl overflow-hidden h-[140px] md:h-[180px]">
             <Iridescence
               color={[0.2, 0.6, 0.8]}
               speed={0.6}

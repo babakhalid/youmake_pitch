@@ -8,7 +8,7 @@ export function SectionStart() {
       </span>
 
       {/* Iridescence Card */}
-      <div className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-[30%] md:w-[40%] h-[50%] md:h-[70%] z-[5] rounded-2xl md:rounded-3xl overflow-hidden hidden md:block">
+      <div className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-[35%] md:w-[40%] h-[40%] md:h-[70%] z-[5] rounded-2xl md:rounded-3xl overflow-hidden">
         <Iridescence
           color={[0.3, 0.4, 0.8]}
           speed={1.0}
