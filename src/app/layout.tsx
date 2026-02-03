@@ -90,8 +90,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
+        <meta name="theme-color" content="#0C0C0C" />
         <Script
           defer
           src="https://umami-production-5ee7.up.railway.app/script.js"
@@ -100,7 +101,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={cn("min-h-screen font-sans antialiased", fontSans.variable)}
+        className={cn("min-h-screen font-sans antialiased bg-[#0C0C0C] text-white", fontSans.variable)}
       >
         {children}
       </body>
