@@ -114,7 +114,7 @@ export function PitchCarusel() {
   return (
     <div className="relative w-full min-h-full">
       {/* Persistent Logo */}
-      <div className="fixed top-4 left-4 md:left-8 z-50">
+      <a href="https://youmake.dev" target="_blank" rel="noopener noreferrer" className="fixed top-4 left-4 md:left-8 z-50">
         <img
           src="/logo_yomake_white.png"
           alt="Yomake Logo"
@@ -122,7 +122,7 @@ export function PitchCarusel() {
           height={40}
           className="dark:invert-0 invert"
         />
-      </div>
+      </a>
 
       {/* QR Code */}
       <div className="fixed top-4 right-4 md:right-8 z-50 hidden md:block">

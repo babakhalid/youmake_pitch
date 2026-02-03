@@ -30,7 +30,7 @@ export function QRCode() {
 
   return (
     <QRCodeSVG
-      value="https://www.youmake.dev/"
+      value="https://pitch.youmake.dev/"
       size={80}
       bgColor="transparent"
       fgColor={isDarkMode ? "#FFFFFF" : "#000000"}
