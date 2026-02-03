@@ -19,6 +19,7 @@ import {
 } from "@/components/ui/carousel";
 import { useEffect, useRef, useState } from "react";
 import { CarouselToolbar } from "./carousel-toolbar";
+import { QRCode } from "./qr-code";
 
 // Slide names for analytics tracking
 const SLIDE_NAMES = [
@@ -119,8 +120,13 @@ export function PitchCarusel() {
           alt="Yomake Logo"
           width={40}
           height={40}
-          className=""
+          className="dark:invert-0 invert"
         />
+      </div>
+
+      {/* QR Code */}
+      <div className="fixed top-4 right-4 md:right-8 z-50 hidden md:block">
+        <QRCode />
       </div>
       
       <Carousel className="w-full min-h-full relative" setApi={setApi}>
