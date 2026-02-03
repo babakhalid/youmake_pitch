@@ -2,7 +2,7 @@ import Iridescence from "@/components/iridescence";
 
 export function SectionStart() {
   return (
-    <div className="min-h-screen relative">
+    <div className="h-screen relative overflow-hidden">
       <span className="absolute right-4 md:right-8 top-4 text-lg z-10">
         Pitch/{new Date().getFullYear()}
       </span>
@@ -17,7 +17,7 @@ export function SectionStart() {
         />
       </div>
 
-      <div className="container min-h-screen flex flex-col items-center justify-center">
+      <div className="container h-screen flex flex-col items-center justify-center">
         <h1 className="text-[70px] md:text-[330px] z-20">
           YouMake
         </h1>

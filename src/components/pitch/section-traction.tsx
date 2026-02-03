@@ -1,11 +1,11 @@
 export function SectionTraction() {
   return (
-    <div className="min-h-screen relative">
+    <div className="h-screen relative overflow-hidden">
       <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
         Traction
       </span>
 
-      <div className="container min-h-screen flex flex-col items-center justify-center py-20 px-4 md:px-8">
+      <div className="container h-screen flex flex-col items-center justify-center py-16 px-4 md:px-8">
         <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 w-full max-w-5xl">
           {/* Card 1 - Signups */}
           <div className="group relative border border-border bg-[#121212] rounded-2xl p-4 md:p-6 flex flex-col h-[160px] md:h-[220px] transition-all duration-300 hover:border-[#333]">
@@ -89,7 +89,7 @@ export function SectionTraction() {
         </div>
 
         {/* Bottom Text */}
-        <p className="text-[#555] text-lg mt-10 text-center tracking-wide">
+        <p className="text-[#555] text-sm md:text-lg mt-6 md:mt-10 text-center tracking-wide">
           Early traction with paying customers
         </p>
       </div>

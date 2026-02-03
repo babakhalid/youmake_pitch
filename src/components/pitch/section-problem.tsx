@@ -2,12 +2,12 @@ import Iridescence from "@/components/iridescence";
 
 export function SectionProblem() {
   return (
-    <div className="min-h-screen relative">
+    <div className="h-screen relative overflow-hidden">
       <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
         The Problem
       </span>
 
-      <div className="container min-h-screen flex flex-col items-center justify-center px-4 md:px-8">
+      <div className="container h-screen flex flex-col items-center justify-center px-4 md:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 md:grid-rows-2 gap-4 w-full max-w-2xl">
           {/* Card 1 - Too Long */}
           <div className="group relative border border-border bg-[#121212] rounded-2xl p-6 flex flex-col h-[140px] md:h-[180px] transition-all duration-300 hover:border-[#333]">

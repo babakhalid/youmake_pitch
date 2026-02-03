@@ -4,19 +4,55 @@
 
 :root {
   --foreground-rgb: 255, 255, 255;
-  --background-start-rgb: 0, 0, 0;
-  --background-end-rgb: 0, 0, 0;
   --background-rgb: 12, 12, 12;
-  --border: 0, 0%, 17%;
+  --card-bg: 18, 18, 18;
+  --card-border: 38, 38, 38;
+  --muted: 135, 135, 135;
+  --muted-dark: 85, 85, 85;
+}
+
+html:not(.dark) {
+  --foreground-rgb: 0, 0, 0;
+  --background-rgb: 255, 255, 255;
+  --card-bg: 245, 245, 245;
+  --card-border: 220, 220, 220;
+  --muted: 100, 100, 100;
+  --muted-dark: 140, 140, 140;
 }
 
 body {
   background: rgb(var(--background-rgb));
   color: rgb(var(--foreground-rgb));
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-html {
+html.dark {
   color-scheme: dark;
+}
+
+html:not(.dark) {
+  color-scheme: light;
+}
+
+/* Card backgrounds for both modes */
+.bg-\[\#121212\] {
+  background-color: rgb(var(--card-bg));
+}
+
+.bg-\[\#0C0C0C\] {
+  background-color: rgb(var(--background-rgb));
+}
+
+.border-border {
+  border-color: rgb(var(--card-border));
+}
+
+.text-\[\#878787\] {
+  color: rgb(var(--muted));
+}
+
+.text-\[\#555\] {
+  color: rgb(var(--muted-dark));
 }
 
 @layer utilities {

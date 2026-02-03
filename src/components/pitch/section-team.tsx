@@ -2,12 +2,12 @@ import Image from "next/image";
 
 export function SectionTeam() {
   return (
-    <div className="min-h-screen relative">
+    <div className="h-screen relative overflow-hidden">
       <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
         Who we are
       </span>
 
-      <div className="container min-h-screen flex flex-col items-center justify-center py-20 px-4 md:px-8">
+      <div className="container h-screen flex flex-col items-center justify-center py-16 px-4 md:px-8">
         <div className="flex flex-col md:flex-row gap-8 w-full max-w-5xl items-center">
           {/* Team Cards */}
           <div className="flex flex-col gap-5 flex-1">

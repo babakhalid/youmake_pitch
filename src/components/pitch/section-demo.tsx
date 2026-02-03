@@ -55,12 +55,12 @@ export function SectionDemo({ playVideo }: Props) {
   };
 
   return (
-    <div className="min-h-screen relative">
+    <div className="h-screen relative overflow-hidden">
       <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
         Demo
       </span>
 
-      <div className="container min-h-screen flex flex-col items-center justify-center py-20 px-4 md:px-8">
+      <div className="container h-screen flex flex-col items-center justify-center py-16 px-4 md:px-8">
         <div className="group relative w-full max-w-4xl">
           {/* Play/Pause Controls */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 group-hover:opacity-100 hidden md:flex space-x-4 items-center justify-center opacity-0 z-30 transition-all duration-300">

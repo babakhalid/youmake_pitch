@@ -1,11 +1,11 @@
 export function SectionSubscription() {
   return (
-    <div className="min-h-screen relative">
+    <div className="h-screen relative overflow-hidden">
       <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
         Revenue Model
       </span>
 
-      <div className="container min-h-screen flex flex-col items-center justify-center py-20 px-4 md:px-8">
+      <div className="container h-screen flex flex-col items-center justify-center py-16 px-4 md:px-8">
         <div className="w-full max-w-5xl">
           {/* AI Model Strategy */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6 mb-6 md:mb-8">

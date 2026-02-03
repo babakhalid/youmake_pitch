@@ -22,6 +22,8 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useHotkeys } from "react-hotkeys-hook";
 import { FaXTwitter } from "react-icons/fa6";
 import { CopyInput } from "@/components/copy-input";
+import { useState, useEffect } from "react";
+import { Maximize2, Minimize2, Moon, Sun } from "lucide-react";
 
 type Props = {
   views: number;
@@ -64,9 +66,50 @@ const popupCenter = ({ url, title, w, h }: { url: string; title: string; w: numb
 
 export function CarouselToolbar({ views }: Props) {
   const api = useCarousel();
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(true);
 
   useHotkeys("arrowRight", () => api.scrollNext(), [api]);
   useHotkeys("arrowLeft", () => api.scrollPrev(), [api]);
+  useHotkeys("f", () => toggleFullscreen(), []);
+  useHotkeys("d", () => toggleDarkMode(), [isDarkMode]);
+
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement);
+    };
+
+    document.addEventListener("fullscreenchange", handleFullscreenChange);
+    return () => document.removeEventListener("fullscreenchange", handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = () => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen();
+    } else {
+      document.exitFullscreen();
+    }
+  };
+
+  const toggleDarkMode = () => {
+    const html = document.documentElement;
+    const body = document.body;
+
+    if (isDarkMode) {
+      // Switch to light mode
+      html.classList.remove("dark");
+      body.classList.remove("bg-[#0C0C0C]", "text-white");
+      body.classList.add("bg-white", "text-black");
+      body.style.colorScheme = "light";
+    } else {
+      // Switch to dark mode
+      html.classList.add("dark");
+      body.classList.remove("bg-white", "text-black");
+      body.classList.add("bg-[#0C0C0C]", "text-white");
+      body.style.colorScheme = "dark";
+    }
+    setIsDarkMode(!isDarkMode);
+  };
 
   const handleOnShare = () => {
     const popup = popupCenter({
@@ -137,6 +180,42 @@ export function CarouselToolbar({ views }: Props) {
                     sideOffset={25}
                   >
                     <span className="text-xs">Share</span>
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button type="button" onClick={toggleFullscreen}>
+                      {isFullscreen ? (
+                        <Minimize2 size={18} className="text-[#878787]" />
+                      ) : (
+                        <Maximize2 size={18} className="text-[#878787]" />
+                      )}
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    className="py-1 px-3 rounded-sm"
+                    sideOffset={25}
+                  >
+                    <span className="text-xs">{isFullscreen ? "Exit fullscreen (F)" : "Fullscreen (F)"}</span>
+                  </TooltipContent>
+                </Tooltip>
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <button type="button" onClick={toggleDarkMode}>
+                      {isDarkMode ? (
+                        <Sun size={18} className="text-[#878787]" />
+                      ) : (
+                        <Moon size={18} className="text-[#878787]" />
+                      )}
+                    </button>
+                  </TooltipTrigger>
+                  <TooltipContent
+                    className="py-1 px-3 rounded-sm"
+                    sideOffset={25}
+                  >
+                    <span className="text-xs">{isDarkMode ? "Light mode (D)" : "Dark mode (D)"}</span>
                   </TooltipContent>
                 </Tooltip>
 

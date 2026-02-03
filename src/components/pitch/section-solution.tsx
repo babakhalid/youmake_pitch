@@ -4,12 +4,12 @@ import overview from "./overview.png";
 
 export function SectionSolution() {
   return (
-    <div className="min-h-screen relative">
+    <div className="h-screen relative overflow-hidden">
       <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
         The Solution
       </span>
 
-      <div className="container min-h-screen flex flex-col items-center justify-center px-4 md:px-8">
+      <div className="container h-screen flex flex-col items-center justify-center px-4 md:px-8">
         <div className="flex flex-col md:flex-row gap-6 w-full max-w-5xl items-center">
           {/* Left - Cards Grid */}
           <div className="grid grid-cols-2 gap-3 md:gap-4 flex-1 w-full">
