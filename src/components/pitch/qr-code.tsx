@@ -29,15 +29,13 @@ export function QRCode() {
   }, []);
 
   return (
-    <div className="p-2 rounded-lg bg-white dark:bg-white transition-all duration-300">
-      <QRCodeSVG
-        value="https://www.youmake.dev/"
-        size={60}
-        bgColor={isDarkMode ? "#FFFFFF" : "#FFFFFF"}
-        fgColor={isDarkMode ? "#000000" : "#000000"}
-        level="M"
-        includeMargin={false}
-      />
-    </div>
+    <QRCodeSVG
+      value="https://www.youmake.dev/"
+      size={80}
+      bgColor="transparent"
+      fgColor={isDarkMode ? "#FFFFFF" : "#000000"}
+      level="M"
+      includeMargin={false}
+    />
   );
 }

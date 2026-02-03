@@ -3,10 +3,6 @@ import Iridescence from "@/components/iridescence";
 export function SectionStart() {
   return (
     <div className="h-screen relative overflow-hidden">
-      <span className="absolute right-4 md:right-8 top-4 text-lg z-10">
-        Pitch/{new Date().getFullYear()}
-      </span>
-
       {/* Iridescence Card */}
       <div className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 w-[35%] md:w-[40%] h-[40%] md:h-[70%] z-[5] rounded-2xl md:rounded-3xl overflow-hidden">
         <Iridescence

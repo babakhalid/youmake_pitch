@@ -18,7 +18,7 @@ export function CalEmbed({ calLink }: Props) {
       Cal.ns["30min"]("inline", {
         elementOrSelector:"#my-cal-inline-30min",
         config: {"layout":"month_view"},
-        calLink: "baba-khalid-wvcubm/30min",
+        calLink: "${calLink}",
       });
 
       Cal.ns["30min"]("ui", {"hideEventTypeDetails":false,"layout":"month_view"});
@@ -27,13 +27,15 @@ export function CalEmbed({ calLink }: Props) {
 
     return () => {
       // Cleanup script on unmount
-      document.head.removeChild(script);
+      if (script.parentNode) {
+        script.parentNode.removeChild(script);
+      }
     };
-  }, []);
+  }, [calLink]);
 
   return (
-    <div 
-      style={{width: "100%", height: "100%", overflow: "scroll"}} 
+    <div
+      style={{width: "100%", height: "100%", overflow: "auto", minHeight: "400px"}}
       id="my-cal-inline-30min"
     />
   );

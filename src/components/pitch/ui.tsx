@@ -4,7 +4,7 @@ export function Card({ children, className }: { children: any; className?: strin
   return (
     <div
       className={cn(
-        "group relative flex border flex-col items-center justify-center border-border bg-[#121212] px-3 pt-3 pb-3 space-y-2 rounded-2xl transition-all duration-300 hover:border-[#333] hover:shadow-lg hover:shadow-black/20 overflow-hidden",
+        "group relative flex border flex-col items-center justify-center border-border bg-[#121212] px-3 pt-3 pb-3 space-y-2 rounded-2xl transition-all duration-300 hover:border-[#333] hover:shadow-lg hover:shadow-black/20 overflow-hidden text-white",
         className
       )}
     >

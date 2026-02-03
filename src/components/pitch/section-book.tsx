@@ -22,15 +22,12 @@ export function SectionBook() {
 
   return (
     <div className="h-screen relative w-screen overflow-hidden">
-      <div className="absolute left-16 right-4 md:left-20 md:right-8 top-4 flex justify-between text-lg">
-        <span>Book a meeting</span>
-        <Link href="http://youmake.dev/signin" onClick={trackSignupClick}>
-          <Button variant="outline">Sign up</Button>
-        </Link>
-      </div>
+      <span className="absolute left-16 md:left-20 top-4 text-lg">
+        Book a meeting
+      </span>
       <div className="flex flex-col h-screen justify-center container">
-        <div className="h-[400px] md:h-[600px] px-4 md:px-0 text-center flex flex-col items-center justify-center">
-          <CalEmbed calLink="pontus-midday/30min" />
+        <div className="w-full max-w-4xl mx-auto h-[500px] md:h-[650px] px-4 md:px-0">
+          <CalEmbed calLink="baba-khalid-wvcubm/30min" />
         </div>
       </div>
     </div>
