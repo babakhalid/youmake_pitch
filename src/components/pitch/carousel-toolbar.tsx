@@ -27,6 +27,8 @@ import { Maximize2, Minimize2, Moon, Sun } from "lucide-react";
 
 type Props = {
   views: number;
+  bookSlideIndex: number;
+  shareUrl: string;
 };
 
 const popupCenter = ({ url, title, w, h }: { url: string; title: string; w: number; h: number }) => {
@@ -64,7 +66,7 @@ const popupCenter = ({ url, title, w, h }: { url: string; title: string; w: numb
   return newWindow;
 };
 
-export function CarouselToolbar({ views }: Props) {
+export function CarouselToolbar({ views, bookSlideIndex, shareUrl }: Props) {
   const api = useCarousel();
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(true);
@@ -113,7 +115,7 @@ export function CarouselToolbar({ views }: Props) {
 
   const handleOnShare = () => {
     const popup = popupCenter({
-      url: "https://twitter.com/intent/tweet?text=Check this pitch deck https://pitch.youmake.dev @youmakedev",
+      url: `https://twitter.com/intent/tweet?text=Check this pitch deck ${shareUrl} @youmakedev`,
       title: "Share",
       w: 800,
       h: 400,
@@ -154,7 +156,7 @@ export function CarouselToolbar({ views }: Props) {
 
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <button type="button" onClick={() => api?.api?.scrollTo(9)}>
+                    <button type="button" onClick={() => bookSlideIndex >= 0 && api?.api?.scrollTo(bookSlideIndex)}>
                       <Icons.Calendar size={18} className="text-[#878787]" />
                     </button>
                   </TooltipTrigger>
@@ -277,7 +279,7 @@ export function CarouselToolbar({ views }: Props) {
           </DialogDescription>
 
           <div className="grid gap-6 py-4">
-            <CopyInput value="https://pitch.youmake.dev" />
+            <CopyInput value={shareUrl} />
             <Button
               className="w-full flex items-center space-x-2 h-10"
               onClick={handleOnShare}

@@ -1,8 +1,14 @@
-export function SectionSubscription() {
+import type { SubscriptionContent } from "@/lib/audience/types";
+
+type Props = {
+  content?: SubscriptionContent;
+};
+
+export function SectionSubscription({ content }: Props) {
   return (
     <div className="h-screen relative overflow-hidden">
       <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
-        Revenue Model
+        {content?.sectionLabel ?? "Revenue Model"}
       </span>
 
       <div className="container h-screen flex flex-col items-center justify-center py-16 px-4 md:px-8">
@@ -87,7 +93,7 @@ export function SectionSubscription() {
 
           {/* Bottom Summary */}
           <p className="text-[#555] text-base md:text-lg mt-6 md:mt-10 text-center tracking-wide">
-            Clear path to 80%+ margins with proprietary AI
+            {content?.bottomText ?? "Clear path to 80%+ margins with proprietary AI"}
           </p>
         </div>
       </div>

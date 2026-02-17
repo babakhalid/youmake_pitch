@@ -1,6 +1,11 @@
 import Iridescence from "@/components/iridescence";
+import type { StartContent } from "@/lib/audience/types";
 
-export function SectionStart() {
+type Props = {
+  content?: StartContent;
+};
+
+export function SectionStart({ content }: Props) {
   return (
     <div className="h-screen relative overflow-hidden">
       {/* Iridescence Card */}
@@ -18,7 +23,7 @@ export function SectionStart() {
           YouMake
         </h1>
         <p className="text-lg md:text-4xl z-20 -mt-2 md:-mt-12 tracking-wide self-end pr-4 md:pr-8">
-          Build at the speed of thought
+          {content?.tagline ?? "Build at the speed of thought"}
         </p>
       </div>
     </div>

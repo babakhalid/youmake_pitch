@@ -1,12 +1,17 @@
 import Image from "next/image";
 import Iridescence from "@/components/iridescence";
+import type { SolutionContent } from "@/lib/audience/types";
 import overview from "./overview.png";
 
-export function SectionSolution() {
+type Props = {
+  content?: SolutionContent;
+};
+
+export function SectionSolution({ content }: Props) {
   return (
     <div className="h-screen relative overflow-hidden">
       <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
-        The Solution
+        {content?.sectionLabel ?? "The Solution"}
       </span>
 
       <div className="container h-screen flex flex-col items-center justify-center px-4 md:px-8">
@@ -47,7 +52,7 @@ export function SectionSolution() {
               </div>
             </div>
 
-            {/* Card 3 - Ship */}
+            {/* Card 3 - Deploy */}
             <div className="group relative border border-border bg-[#121212] rounded-2xl p-4 md:p-6 flex flex-col h-[120px] md:h-[160px] transition-all duration-300 hover:border-[#333]">
               <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
               <div className="relative z-10 flex flex-col h-full">
@@ -59,7 +64,7 @@ export function SectionSolution() {
                 </div>
                 <div className="mt-auto">
                   <span className="text-[#878787] text-xs uppercase tracking-widest">Step 3</span>
-                  <h3 className="text-xl font-medium mt-1">Ship</h3>
+                  <h3 className="text-xl font-medium mt-1">Deploy</h3>
                 </div>
               </div>
             </div>
@@ -92,7 +97,7 @@ export function SectionSolution() {
 
         {/* Bottom Slogan */}
         <p className="text-xl md:text-2xl font-medium mt-8 md:mt-12 text-center tracking-wide">
-          Describe it. Build it. Ship it.
+          {content?.bottomSlogan ?? "Describe it. Build it. Deploy it."}
         </p>
       </div>
     </div>

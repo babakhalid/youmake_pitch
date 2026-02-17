@@ -3,7 +3,11 @@
 import { QRCodeSVG } from "qrcode.react";
 import { useEffect, useState } from "react";
 
-export function QRCode() {
+type Props = {
+  url?: string;
+};
+
+export function QRCode({ url = "https://pitch.youmake.dev/" }: Props) {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
   useEffect(() => {
@@ -30,7 +34,7 @@ export function QRCode() {
 
   return (
     <QRCodeSVG
-      value="https://pitch.youmake.dev/"
+      value={url}
       size={80}
       bgColor="transparent"
       fgColor={isDarkMode ? "#FFFFFF" : "#000000"}

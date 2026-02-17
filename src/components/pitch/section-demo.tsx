@@ -6,11 +6,14 @@ import { Icons } from "@/components/ui/icons";
 import { useEffect, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
+import type { DemoContent } from "@/lib/audience/types";
+
 type Props = {
   playVideo: boolean;
+  content?: DemoContent;
 };
 
-export function SectionDemo({ playVideo }: Props) {
+export function SectionDemo({ playVideo, content }: Props) {
   const playerRef = useRef<HTMLVideoElement>(null);
   const [isPlaying, setPlaying] = useState(false);
   const isDesktop = useMediaQuery("(min-width: 768px)");
@@ -57,7 +60,7 @@ export function SectionDemo({ playVideo }: Props) {
   return (
     <div className="h-screen relative overflow-hidden">
       <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
-        Demo
+        {content?.sectionLabel ?? "Demo"}
       </span>
 
       <div className="container h-screen flex flex-col items-center justify-center py-16 px-4 md:px-8">
@@ -88,7 +91,7 @@ export function SectionDemo({ playVideo }: Props) {
           <video
             ref={playerRef}
             onClick={togglePlay}
-            src="/demo.mp4"
+            src={content?.videoSrc ?? "/demo.mp4"}
             controls={!isDesktop}
             loop
             muted
@@ -99,7 +102,7 @@ export function SectionDemo({ playVideo }: Props) {
 
         {/* Bottom Text */}
         <p className="text-[#555] text-lg mt-8 text-center tracking-wide">
-          See YouMake in action
+          {content?.bottomText ?? "See YouMake in action"}
         </p>
       </div>
     </div>

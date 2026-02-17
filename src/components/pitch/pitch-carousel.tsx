@@ -1,6 +1,5 @@
 "use client";
 
-import { setViewCount } from "@/actions/set-view-count";
 import { SectionBook } from "@/components/pitch/section-book";
 import { SectionDemo } from "@/components/pitch/section-demo";
 import { SectionNext } from "@/components/pitch/section-next";
@@ -8,6 +7,7 @@ import { SectionProblem } from "@/components/pitch/section-problem";
 import { SectionSolution } from "@/components/pitch/section-solution";
 import { SectionStart } from "@/components/pitch/section-start";
 import { SectionSubscription } from "@/components/pitch/section-subscription";
+import { SectionMission } from "@/components/pitch/section-mission";
 import { SectionTeam } from "@/components/pitch/section-team";
 import { SectionTraction } from "@/components/pitch/section-traction";
 import { SectionVision } from "@/components/pitch/section-vision";
@@ -17,23 +17,25 @@ import {
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
+import type { AudienceConfig, SlideId } from "@/lib/audience";
 import { useEffect, useRef, useState } from "react";
 import { CarouselToolbar } from "./carousel-toolbar";
 import { QRCode } from "./qr-code";
 
-// Slide names for analytics tracking
-const SLIDE_NAMES = [
-  "start",
-  "problem",
-  "solution",
-  "demo",
-  "traction",
-  "team",
-  "vision",
-  "revenue-model",
-  "whats-next",
-  "book-meeting",
-] as const;
+// eslint-disable-next-line
+const SLIDE_COMPONENTS: Record<SlideId, React.ComponentType<any>> = {
+  start: SectionStart,
+  problem: SectionProblem,
+  solution: SectionSolution,
+  demo: SectionDemo,
+  traction: SectionTraction,
+  team: SectionTeam,
+  mission: SectionMission,
+  vision: SectionVision,
+  "revenue-model": SectionSubscription,
+  "whats-next": SectionNext,
+  "book-meeting": SectionBook,
+};
 
 // Declare Umami types
 declare global {
@@ -44,13 +46,20 @@ declare global {
   }
 }
 
-export function PitchCarusel() {
+type Props = {
+  config: AudienceConfig;
+};
+
+export function PitchCarusel({ config }: Props) {
   const [views, setViews] = useState(0);
   const called = useRef(false);
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
   const slideStartTime = useRef<number>(Date.now());
   const previousSlideRef = useRef<number>(0);
+
+  const slideNames = config.slides;
+  const bookSlideIndex = slideNames.indexOf("book-meeting");
 
   useEffect(() => {
     async function fetchViewsCount() {
@@ -86,9 +95,10 @@ export function PitchCarusel() {
       const timeSpent = Math.round((Date.now() - slideStartTime.current) / 1000);
       if (window.umami && timeSpent > 0) {
         window.umami.track("slide-duration", {
-          slide: SLIDE_NAMES[previousSlide],
+          slide: slideNames[previousSlide],
           slideNumber: previousSlide + 1,
           duration: timeSpent,
+          audience: config.id,
         });
       }
 
@@ -101,15 +111,19 @@ export function PitchCarusel() {
     });
   }, [api]);
 
-  // Track slide view
   const trackSlideView = (slideIndex: number) => {
     if (window.umami) {
       window.umami.track("slide-view", {
-        slide: SLIDE_NAMES[slideIndex],
+        slide: slideNames[slideIndex],
         slideNumber: slideIndex + 1,
+        audience: config.id,
       });
     }
   };
+
+  const shareUrl = config.id === "investors"
+    ? "https://pitch.youmake.dev"
+    : `https://pitch.youmake.dev/${config.id}`;
 
   return (
     <div className="relative w-full min-h-full">
@@ -126,44 +140,31 @@ export function PitchCarusel() {
 
       {/* QR Code */}
       <div className="fixed top-4 right-4 md:right-8 z-50 hidden md:block">
-        <QRCode />
+        <QRCode url={shareUrl} />
       </div>
-      
+
       <Carousel className="w-full min-h-full relative" setApi={setApi}>
         <CarouselContent>
-        <CarouselItem>
-          <SectionStart />
-        </CarouselItem>
-        <CarouselItem>
-          <SectionProblem />
-        </CarouselItem>
-        <CarouselItem>
-          <SectionSolution />
-        </CarouselItem>
-        <CarouselItem>
-          <SectionDemo playVideo={current === 4} />
-        </CarouselItem>
-        <CarouselItem>
-          <SectionTraction />
-        </CarouselItem>
-        <CarouselItem>
-          <SectionTeam />
-        </CarouselItem>
-        <CarouselItem>
-          <SectionVision />
-        </CarouselItem>
-        <CarouselItem>
-          <SectionSubscription />
-        </CarouselItem>
-        <CarouselItem>
-          <SectionNext />
-        </CarouselItem>
-        <CarouselItem>
-          <SectionBook />
-        </CarouselItem>
-      </CarouselContent>
+          {slideNames.map((slideId, index) => {
+            const Component = SLIDE_COMPONENTS[slideId];
+            const content = config.content[slideId];
+            const extraProps = slideId === "demo"
+              ? { playVideo: current === index + 1 }
+              : {};
 
-      <CarouselToolbar views={views} />
+            return (
+              <CarouselItem key={slideId}>
+                <Component content={content} {...extraProps} />
+              </CarouselItem>
+            );
+          })}
+        </CarouselContent>
+
+        <CarouselToolbar
+          views={views}
+          bookSlideIndex={bookSlideIndex}
+          shareUrl={shareUrl}
+        />
       </Carousel>
     </div>
   );

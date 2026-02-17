@@ -1,17 +1,20 @@
 import Image from "next/image";
-import Link from "next/link";
-import app from "./app.png";
+import type { NextContent } from "@/lib/audience/types";
 import apps from "./apps.png";
 import engine from "./engine.png";
 import invoice from "./invoice.png";
 import ai from "./midday-ai.png";
 import { Card } from "./ui";
 
-export function SectionNext() {
+type Props = {
+  content?: NextContent;
+};
+
+export function SectionNext({ content }: Props) {
   return (
     <div className="h-screen relative w-screen overflow-hidden">
       <span className="absolute left-16 md:left-20 top-4 text-lg">
-        Whats coming next
+        {content?.sectionLabel ?? "Whats coming next"}
       </span>
       <div className="flex flex-col h-screen justify-center container">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4 px-4 md:px-0">
