@@ -2,87 +2,97 @@ import Image from "next/image";
 import Iridescence from "@/components/iridescence";
 import type { SolutionContent } from "@/lib/audience/types";
 import overview from "./overview.png";
+import { Eyebrow, SectionLabel } from "./ui";
 
 type Props = {
   content?: SolutionContent;
 };
 
+const STEPS = [
+  {
+    step: "Step 1",
+    title: "Describe",
+    icon: (
+      <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
+    ),
+  },
+  {
+    step: "Step 2",
+    title: "Build",
+    icon: (
+      <>
+        <polygon points="12 2 2 7 12 12 22 7 12 2" />
+        <polyline points="2 17 12 22 22 17" />
+        <polyline points="2 12 12 17 22 12" />
+      </>
+    ),
+  },
+  {
+    step: "Step 3",
+    title: "Deploy",
+    icon: (
+      <>
+        <path d="M22 2L11 13" />
+        <path d="M22 2l-7 20-4-9-9-4 20-7z" />
+      </>
+    ),
+  },
+];
+
 export function SectionSolution({ content }: Props) {
   return (
     <div className="h-screen relative overflow-hidden">
-      <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
-        {content?.sectionLabel ?? "The Solution"}
-      </span>
+      <SectionLabel>{content?.sectionLabel ?? "The Solution"}</SectionLabel>
 
-      <div className="container h-screen flex flex-col items-center justify-center px-4 md:px-8">
-        <div className="flex flex-col md:flex-row gap-6 w-full max-w-5xl items-center">
-          {/* Left - Cards Grid */}
+      <div className="container h-full flex flex-col px-4 md:px-8 py-20 md:py-16 overflow-y-auto md:overflow-visible">
+        <div className="m-auto w-full max-w-5xl flex flex-col items-center">
+          <div className="flex flex-col md:flex-row gap-6 md:gap-10 w-full items-center">
+          {/* Left - Steps grid */}
           <div className="grid grid-cols-2 gap-3 md:gap-4 flex-1 w-full">
-            {/* Card 1 - Describe */}
-            <div className="group relative border border-border bg-[#121212] rounded-2xl p-4 md:p-6 flex flex-col h-[120px] md:h-[160px] transition-all duration-300 hover:border-[#333]">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="w-10 h-10 rounded-xl bg-[#1a1a1a] flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+            {STEPS.map((step) => (
+              <div
+                key={step.title}
+                className="relative border border-border bg-card rounded-[1.5rem] p-4 md:p-6 flex flex-col h-[120px] md:h-[160px] transition-colors duration-300 hover:bg-accent/40"
+              >
+                <div className="w-10 h-10 rounded-xl bg-secondary text-secondary-foreground flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    {step.icon}
                   </svg>
                 </div>
                 <div className="mt-auto">
-                  <span className="text-[#878787] text-xs uppercase tracking-widest">Step 1</span>
-                  <h3 className="text-xl font-medium mt-1">Describe</h3>
+                  <Eyebrow>{step.step}</Eyebrow>
+                  <h3 className="text-xl font-medium tracking-[-0.02em] mt-1">
+                    {step.title}
+                  </h3>
                 </div>
               </div>
-            </div>
+            ))}
 
-            {/* Card 2 - Build */}
-            <div className="group relative border border-border bg-[#121212] rounded-2xl p-4 md:p-6 flex flex-col h-[120px] md:h-[160px] transition-all duration-300 hover:border-[#333]">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="w-10 h-10 rounded-xl bg-[#1a1a1a] flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <polygon points="12 2 2 7 12 12 22 7 12 2"/>
-                    <polyline points="2 17 12 22 22 17"/>
-                    <polyline points="2 12 12 17 22 12"/>
-                  </svg>
-                </div>
-                <div className="mt-auto">
-                  <span className="text-[#878787] text-xs uppercase tracking-widest">Step 2</span>
-                  <h3 className="text-xl font-medium mt-1">Build</h3>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 3 - Deploy */}
-            <div className="group relative border border-border bg-[#121212] rounded-2xl p-4 md:p-6 flex flex-col h-[120px] md:h-[160px] transition-all duration-300 hover:border-[#333]">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="w-10 h-10 rounded-xl bg-[#1a1a1a] flex items-center justify-center">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M22 2L11 13"/>
-                    <path d="M22 2l-7 20-4-9-9-4 20-7z"/>
-                  </svg>
-                </div>
-                <div className="mt-auto">
-                  <span className="text-[#878787] text-xs uppercase tracking-widest">Step 3</span>
-                  <h3 className="text-xl font-medium mt-1">Deploy</h3>
-                </div>
-              </div>
-            </div>
-
-            {/* Card 4 - Iridescence */}
-            <div className="rounded-2xl overflow-hidden h-[120px] md:h-[160px]">
+            {/* Iridescent sky tile */}
+            <div className="relative rounded-[1.5rem] overflow-hidden h-[120px] md:h-[160px]">
               <Iridescence
-                color={[0.3, 0.5, 0.7]}
-                speed={0.6}
+                color={[0.68, 0.78, 0.98]}
+                speed={0.85}
                 amplitude={0.1}
-                mouseReact={true}
+                mouseReact={false}
               />
+              <div className="absolute inset-0 grain pointer-events-none" />
             </div>
           </div>
 
-          {/* Right - Image */}
+          {/* Right - Product screenshot */}
           <div className="flex-1 justify-center hidden md:flex">
-            <div className="rounded-2xl overflow-hidden border border-border">
+            <div className="rounded-[1.5rem] overflow-hidden border border-border">
               <Image
                 src={overview}
                 alt="YouMake Overview"
@@ -95,10 +105,11 @@ export function SectionSolution({ content }: Props) {
           </div>
         </div>
 
-        {/* Bottom Slogan */}
-        <p className="text-xl md:text-2xl font-medium mt-8 md:mt-12 text-center tracking-wide">
-          {content?.bottomSlogan ?? "Describe it. Build it. Deploy it."}
-        </p>
+          {/* Bottom slogan */}
+          <p className="font-serif text-2xl md:text-4xl mt-8 md:mt-14 text-center tracking-[-0.01em]">
+            {content?.bottomSlogan ?? "Describe it. Build it. Deploy it."}
+          </p>
+        </div>
       </div>
     </div>
   );

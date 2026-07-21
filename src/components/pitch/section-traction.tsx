@@ -1,12 +1,13 @@
 import type { TractionContent } from "@/lib/audience/types";
+import { Eyebrow, SectionLabel } from "./ui";
 
 const DEFAULT_METRICS = [
-  { label: "Signups", value: "175", showPing: true },
-  { label: "Projects", value: "371", showPing: true },
-  { label: "Deployed", value: "68", showPing: true },
-  { label: "Messages", sublabel: "Users & AI Agents", value: "66.6K", showPing: false },
-  { label: "MRR", value: "$245", showPing: true },
-  { label: "Average", sublabel: "Per paying user", value: "$61", showPing: false },
+  { label: "Signups", sublabel: "190 in the last 30 days", value: "~500", showPing: true },
+  { label: "Growth", sublabel: "Signups, month over month", value: "2x", showPing: false },
+  { label: "MRR", sublabel: "7 paying subscribers", value: "$160", showPing: true },
+  { label: "Retention", sublabel: "Longest customer — a freelancer shipping client sites", value: "9+ mo", showPing: false },
+  { label: "Client Handoffs", sublabel: "Organic in-product transfers", value: "7", showPing: true },
+  { label: "Agency Partners", sublabel: "Inbound applications", value: "4", showPing: false },
 ];
 
 type Props = {
@@ -16,42 +17,47 @@ type Props = {
 export function SectionTraction({ content }: Props) {
   const sectionLabel = content?.sectionLabel ?? "Traction";
   const metrics = content?.metrics ?? DEFAULT_METRICS;
-  const bottomText = content?.bottomText ?? "Early traction with paying customers";
+  const bottomText =
+    content?.bottomText ??
+    "Freelancers ship client sites on YouMake — and hand them off in-product.";
 
   return (
     <div className="h-screen relative overflow-hidden">
-      <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
-        {sectionLabel}
-      </span>
+      <SectionLabel>{sectionLabel}</SectionLabel>
 
-      <div className="container h-screen flex flex-col items-center justify-center py-16 px-4 md:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 w-full max-w-5xl">
-          {metrics.map((metric) => (
-            <div key={metric.label} className="group relative border border-border bg-[#121212] rounded-2xl p-4 md:p-6 flex flex-col h-[160px] md:h-[220px] transition-all duration-300 hover:border-[#333]">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-              <div className="relative z-10 flex flex-col h-full">
-                <span className="text-[#878787] text-xs uppercase tracking-widest">{metric.label}</span>
+      <div className="container h-full flex flex-col px-4 md:px-8 py-20 md:py-16 overflow-y-auto md:overflow-visible">
+        <div className="m-auto w-full max-w-5xl flex flex-col items-center">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5 w-full">
+            {metrics.map((metric) => (
+              <div
+                key={metric.label}
+                className="relative border border-border bg-card rounded-[1.5rem] p-4 md:p-6 flex flex-col h-[130px] sm:h-[150px] md:h-[210px] transition-colors duration-300 hover:bg-accent/40"
+              >
+                <Eyebrow>{metric.label}</Eyebrow>
                 {metric.sublabel && (
-                  <p className="text-[#555] text-xs mt-1">{metric.sublabel}</p>
+                  <p className="text-muted-foreground/70 text-xs mt-1">
+                    {metric.sublabel}
+                  </p>
                 )}
                 <div className="mt-auto flex items-center gap-2 md:gap-3">
                   {metric.showPing !== false && (
                     <span className="relative flex h-2 w-2">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-green-400" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500" />
+                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 bg-ring" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 bg-ring" />
                     </span>
                   )}
-                  <span className="font-mono text-4xl md:text-7xl font-medium">{metric.value}</span>
+                  <span className="font-semibold tabular-nums tracking-[-0.05em] text-3xl sm:text-4xl md:text-6xl">
+                    {metric.value}
+                  </span>
                 </div>
               </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
-        {/* Bottom Text */}
-        <p className="text-[#555] text-sm md:text-lg mt-6 md:mt-10 text-center tracking-wide">
-          {bottomText}
-        </p>
+          <p className="text-muted-foreground text-sm md:text-lg mt-6 md:mt-10 text-center">
+            {bottomText}
+          </p>
+        </div>
       </div>
     </div>
   );

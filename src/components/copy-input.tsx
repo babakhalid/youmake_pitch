@@ -28,11 +28,11 @@ export function CopyInput({ value, className }: Props) {
   return (
     <div
       className={cn(
-        "flex items-center relative w-full border border-border py-2 px-4",
+        "flex items-center relative w-full border border-border rounded-full bg-card py-2 px-4",
         className
       )}
     >
-      <div className="pr-7 text-[#878787] text-sm">{value}</div>
+      <div className="pr-7 text-muted-foreground text-sm">{value}</div>
       <button type="button" onClick={handleClipboard}>
         <span className="sr-only">Copy</span>
         <motion.div

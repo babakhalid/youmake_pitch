@@ -2,6 +2,7 @@
 
 import { CalEmbed } from "@/components/cal-embed";
 import type { BookContent } from "@/lib/audience/types";
+import { SectionLabel } from "./ui";
 
 // Declare Umami types
 declare global {
@@ -25,9 +26,7 @@ export function SectionBook({ content }: Props) {
 
   return (
     <div className="h-screen relative w-screen overflow-hidden">
-      <span className="absolute left-16 md:left-20 top-4 text-lg">
-        {content?.sectionLabel ?? "Book a meeting"}
-      </span>
+      <SectionLabel>{content?.sectionLabel ?? "Book a meeting"}</SectionLabel>
       <div className="flex flex-col h-screen justify-center container">
         <div className="w-full max-w-4xl mx-auto h-[500px] md:h-[650px] px-4 md:px-0">
           <CalEmbed calLink={content?.calLink ?? "baba-khalid-wvcubm/30min"} />

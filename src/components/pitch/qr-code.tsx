@@ -37,7 +37,7 @@ export function QRCode({ url = "https://pitch.youmake.dev/" }: Props) {
       value={url}
       size={80}
       bgColor="transparent"
-      fgColor={isDarkMode ? "#FFFFFF" : "#000000"}
+      fgColor={isDarkMode ? "#F2F4F8" : "#131620"}
       level="M"
       includeMargin={false}
     />

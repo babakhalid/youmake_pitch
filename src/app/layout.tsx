@@ -2,7 +2,11 @@ import type { Metadata } from "next";
 import Script from "next/script";
 
 import "./globals.css";
-import { Inter as FontSans } from "next/font/google";
+import {
+  Inter as FontSans,
+  Instrument_Serif as FontSerif,
+  JetBrains_Mono as FontMono,
+} from "next/font/google";
 import { cn } from "@/lib/utils";
 
 const siteUrl = "https://pitch.youmake.dev";
@@ -10,7 +14,7 @@ const siteUrl = "https://pitch.youmake.dev";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "YouMake - Build at the Speed of Thought",
+    default: "YouMake — Describe it. Ship it.",
     template: "%s | YouMake",
   },
   description:
@@ -52,7 +56,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: siteUrl,
     siteName: "YouMake",
-    title: "YouMake - Build at the Speed of Thought",
+    title: "YouMake — Describe it. Ship it.",
     description:
       "Empowering everyone to build software without coding. Describe it. Build it. Ship it.",
     images: [
@@ -60,13 +64,13 @@ export const metadata: Metadata = {
         url: "/og-image.png",
         width: 1200,
         height: 630,
-        alt: "YouMake - Build at the Speed of Thought",
+        alt: "YouMake — Describe it. Ship it.",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "YouMake - Build at the Speed of Thought",
+    title: "YouMake — Describe it. Ship it.",
     description:
       "Empowering everyone to build software without coding. Describe it. Build it. Ship it.",
     images: ["/og-image.png"],
@@ -84,6 +88,17 @@ const fontSans = FontSans({
   variable: "--font-sans",
 });
 
+const fontSerif = FontSerif({
+  subsets: ["latin"],
+  weight: "400",
+  variable: "--font-serif",
+});
+
+const fontMono = FontMono({
+  subsets: ["latin"],
+  variable: "--font-mono",
+});
+
 export default function RootLayout({
   children,
 }: {
@@ -92,7 +107,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <head>
-        <meta name="theme-color" content="#0C0C0C" />
+        <meta name="theme-color" content="#0E0F16" />
         <Script
           defer
           src="https://umami-production-5ee7.up.railway.app/script.js"
@@ -101,7 +116,12 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={cn("min-h-screen font-sans antialiased bg-[#0C0C0C] text-white", fontSans.variable)}
+        className={cn(
+          "min-h-screen font-sans antialiased bg-background text-foreground",
+          fontSans.variable,
+          fontSerif.variable,
+          fontMono.variable
+        )}
       >
         {children}
       </body>

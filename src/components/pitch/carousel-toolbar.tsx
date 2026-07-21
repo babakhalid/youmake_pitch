@@ -94,22 +94,7 @@ export function CarouselToolbar({ views, bookSlideIndex, shareUrl }: Props) {
   };
 
   const toggleDarkMode = () => {
-    const html = document.documentElement;
-    const body = document.body;
-
-    if (isDarkMode) {
-      // Switch to light mode
-      html.classList.remove("dark");
-      body.classList.remove("bg-[#0C0C0C]", "text-white");
-      body.classList.add("bg-white", "text-black");
-      body.style.colorScheme = "light";
-    } else {
-      // Switch to dark mode
-      html.classList.add("dark");
-      body.classList.remove("bg-white", "text-black");
-      body.classList.add("bg-[#0C0C0C]", "text-white");
-      body.style.colorScheme = "dark";
-    }
+    document.documentElement.classList.toggle("dark", !isDarkMode);
     setIsDarkMode(!isDarkMode);
   };
 
@@ -130,10 +115,10 @@ export function CarouselToolbar({ views, bookSlideIndex, shareUrl }: Props) {
         <AnimatePresence>
           <motion.div animate={{ y: views > 0 ? 0 : 100 }} initial={{ y: 100 }}>
             <TooltipProvider delayDuration={20}>
-              <div className="flex backdrop-filter backdrop-blur-lg bg-[#1A1A1A]/80 h-10 px-4 py-2 border border-[#2C2C2C] items-center space-x-4">
+              <div className="flex backdrop-filter backdrop-blur-lg bg-card/80 h-10 px-4 py-2 border border-border rounded-full items-center space-x-4">
                 <Tooltip>
                   <TooltipTrigger>
-                    <div className="text-[#878787] flex items-center space-x-2 border-r-[1px] border-border pr-4">
+                    <div className="text-muted-foreground flex items-center space-x-2 border-r-[1px] border-border pr-4">
                       <Icons.Visibility size={18} />
 
                       <span className="text-sm">
@@ -157,7 +142,7 @@ export function CarouselToolbar({ views, bookSlideIndex, shareUrl }: Props) {
                 <Tooltip>
                   <TooltipTrigger asChild>
                     <button type="button" onClick={() => bookSlideIndex >= 0 && api?.api?.scrollTo(bookSlideIndex)}>
-                      <Icons.Calendar size={18} className="text-[#878787]" />
+                      <Icons.Calendar size={18} className="text-muted-foreground" />
                     </button>
                   </TooltipTrigger>
                   <TooltipContent
@@ -173,7 +158,7 @@ export function CarouselToolbar({ views, bookSlideIndex, shareUrl }: Props) {
                     <DialogTrigger asChild>
                       <Icons.Share
                         size={18}
-                        className="text-[#878787] -mt-[1px]"
+                        className="text-muted-foreground -mt-[1px]"
                       />
                     </DialogTrigger>
                   </TooltipTrigger>
@@ -189,9 +174,9 @@ export function CarouselToolbar({ views, bookSlideIndex, shareUrl }: Props) {
                   <TooltipTrigger asChild>
                     <button type="button" onClick={toggleFullscreen}>
                       {isFullscreen ? (
-                        <Minimize2 size={18} className="text-[#878787]" />
+                        <Minimize2 size={18} className="text-muted-foreground" />
                       ) : (
-                        <Maximize2 size={18} className="text-[#878787]" />
+                        <Maximize2 size={18} className="text-muted-foreground" />
                       )}
                     </button>
                   </TooltipTrigger>
@@ -207,9 +192,9 @@ export function CarouselToolbar({ views, bookSlideIndex, shareUrl }: Props) {
                   <TooltipTrigger asChild>
                     <button type="button" onClick={toggleDarkMode}>
                       {isDarkMode ? (
-                        <Sun size={18} className="text-[#878787]" />
+                        <Sun size={18} className="text-muted-foreground" />
                       ) : (
-                        <Moon size={18} className="text-[#878787]" />
+                        <Moon size={18} className="text-muted-foreground" />
                       )}
                     </button>
                   </TooltipTrigger>

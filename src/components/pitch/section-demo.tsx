@@ -7,6 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 
 import type { DemoContent } from "@/lib/audience/types";
+import { SectionLabel } from "./ui";
 
 type Props = {
   playVideo: boolean;
@@ -59,9 +60,7 @@ export function SectionDemo({ playVideo, content }: Props) {
 
   return (
     <div className="h-screen relative overflow-hidden">
-      <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
-        {content?.sectionLabel ?? "Demo"}
-      </span>
+      <SectionLabel>{content?.sectionLabel ?? "Demo"}</SectionLabel>
 
       <div className="container h-screen flex flex-col items-center justify-center py-16 px-4 md:px-8">
         <div className="group relative w-full max-w-4xl">
@@ -96,12 +95,12 @@ export function SectionDemo({ playVideo, content }: Props) {
             loop
             muted
             playsInline
-            className="w-full rounded-2xl border border-border bg-[#121212] cursor-pointer"
+            className="w-full max-h-[62vh] object-contain rounded-[1.5rem] border border-border bg-card cursor-pointer"
           />
         </div>
 
         {/* Bottom Text */}
-        <p className="text-[#555] text-lg mt-8 text-center tracking-wide">
+        <p className="text-muted-foreground text-lg mt-8 text-center">
           {content?.bottomText ?? "See YouMake in action"}
         </p>
       </div>

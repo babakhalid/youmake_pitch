@@ -1,5 +1,6 @@
 import Image from "next/image";
 import type { TeamContent, TeamMember } from "@/lib/audience/types";
+import { Eyebrow, SectionLabel } from "./ui";
 
 const DEFAULT_MEMBERS: TeamMember[] = [
   {
@@ -25,19 +26,18 @@ export function SectionTeam({ content }: Props) {
 
   return (
     <div className="h-screen relative overflow-hidden">
-      <span className="absolute left-16 md:left-20 top-4 text-lg z-10">
-        {content?.sectionLabel ?? "Who we are"}
-      </span>
+      <SectionLabel>{content?.sectionLabel ?? "Who we are"}</SectionLabel>
 
-      <div className="container h-screen flex flex-col items-center justify-center py-16 px-4 md:px-8">
-        <div className="flex flex-col gap-5 w-full max-w-3xl">
+      <div className="container h-full flex flex-col px-4 md:px-8 py-20 md:py-16 overflow-y-auto md:overflow-visible">
+        <div className="m-auto flex flex-col gap-4 md:gap-5 w-full max-w-3xl">
           {members.map((member) => (
             <div
               key={member.name}
-              className="group relative border border-border bg-[#121212] rounded-2xl p-5 md:p-8 transition-all duration-300 hover:border-[#333]"
+              className="relative border border-border bg-card rounded-[1.5rem] p-5 md:p-8 transition-colors duration-300 hover:bg-accent/40"
             >
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1a1a1a] to-[#0f0f0f] opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl" />
-              <div className={`relative z-10 flex ${member.image ? "gap-4 md:gap-6 items-start" : "flex-col"}`}>
+              <div
+                className={`flex ${member.image ? "gap-4 md:gap-6 items-start" : "flex-col"}`}
+              >
                 {member.image && (
                   <Image
                     src={member.image}
@@ -49,9 +49,11 @@ export function SectionTeam({ content }: Props) {
                   />
                 )}
                 <div className="flex flex-col">
-                  <h2 className="text-xl md:text-2xl font-medium">{member.name}</h2>
-                  <span className="text-[#878787] text-xs md:text-sm">{member.role}</span>
-                  <p className="text-[#878787] text-xs md:text-sm mt-2 md:mt-3 leading-relaxed">
+                  <h2 className="text-xl md:text-2xl font-medium tracking-[-0.02em]">
+                    {member.name}
+                  </h2>
+                  <Eyebrow className="mt-1">{member.role}</Eyebrow>
+                  <p className="text-muted-foreground text-xs md:text-sm mt-2 md:mt-3 leading-relaxed">
                     {member.bio}
                   </p>
                 </div>

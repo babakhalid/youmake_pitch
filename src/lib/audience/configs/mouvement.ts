@@ -25,10 +25,10 @@ export const mouvementConfig: AudienceConfig = {
       bottomText: "Built by non-technical teams. Deployed and running.",
       metrics: [
         { label: "Projects", value: "371", showPing: true },
-        { label: "Deployed", value: "68", showPing: true },
+        { label: "Deployed", sublabel: "18% of projects go live", value: "68", showPing: true },
         { label: "Messages", sublabel: "Users & AI", value: "66.6K", showPing: false },
-        { label: "Builders", value: "175", showPing: true },
-        { label: "To Prototype", value: "30m", showPing: true },
+        { label: "Builders", sublabel: "190 in the last 30 days", value: "~500", showPing: true },
+        { label: "To Prototype", sublabel: "From first description", value: "30m", showPing: true },
         { label: "Code Required", value: "Zero", showPing: false },
       ],
     },
